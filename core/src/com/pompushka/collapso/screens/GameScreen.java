@@ -3,37 +3,46 @@ package com.pompushka.collapso.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.pompushka.collapso.CollapsoGame;
+import com.pompushka.collapso.Core;
 
-public class StartScreen  implements Screen{
+public class GameScreen implements Screen{
 
 	private CollapsoGame game;
 	private SpriteBatch batch;
 	
-	private Texture img;
+	private OrthographicCamera camera;
+	//private GameStage gameStage;
 	
-	public StartScreen(final CollapsoGame game){
+	public GameScreen(final CollapsoGame game){
 		this.game = game;
 		this.batch = game.batch;
+		
+		camera = new OrthographicCamera(Core.viewPortWidth, Core.viewPortHeight);
+		camera.position.set(Core.viewPortWidth*0.5f, Core.viewPortHeight*0.5f, 0f);
+		camera.update();
+		
+		//gameStage = new GameStage(new ScreenViewport(camera), batch, game);
 	}
 	
 	@Override
 	public void show() {
-		img = new Texture("badlogic.jpg");
-		Gdx.app.log("StartScreen", "Showed");
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void render(float delta) {/*
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		Gdx.gl.glClearColor(0, 0, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		//batch.draw(img, 0, 0);
-		batch.end();*/
 		
-		if (Gdx.input.isTouched())	game.setScreen(game.gameScreen);
+		batch.setProjectionMatrix(camera.combined);
+		//gameStage.draw();
+		//gameStage.act(delta);
 	}
 
 	@Override
@@ -63,7 +72,7 @@ public class StartScreen  implements Screen{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		Gdx.app.log("StartScreen", "Disposed");
+		Gdx.app.log("GameScreen", "Disposed");
 	}
 
 }
