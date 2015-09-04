@@ -5,9 +5,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.pompushka.collapso.CollapsoGame;
 import com.pompushka.collapso.Core;
+import com.pompushka.collapso.stages.CollapsoStage1;
 
 public class GameScreen implements Screen{
 
@@ -15,7 +17,7 @@ public class GameScreen implements Screen{
 	private SpriteBatch batch;
 	
 	private OrthographicCamera camera;
-	//private GameStage gameStage;
+	private Stage stage1;
 	
 	public GameScreen(final CollapsoGame game){
 		this.game = game;
@@ -25,7 +27,7 @@ public class GameScreen implements Screen{
 		camera.position.set(Core.viewPortWidth*0.5f, Core.viewPortHeight*0.5f, 0f);
 		camera.update();
 		
-		//gameStage = new GameStage(new ScreenViewport(camera), batch, game);
+		stage1 = new CollapsoStage1(new ScreenViewport(camera), batch, game);
 	}
 	
 	@Override
@@ -41,14 +43,15 @@ public class GameScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.setProjectionMatrix(camera.combined);
-		//gameStage.draw();
-		//gameStage.act(delta);
+		stage1.draw();
+		stage1.act(delta);
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
+		Core.resize(width, height);
+		//gameStage.resize(width, height);
 	}
 
 	@Override
