@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Hero extends Actor{
+public class EnemyBasic extends Actor{
 	
-	private TextureRegion tRegion = new TextureRegion(new Texture("hero.png"), 0,0,200,200);
+	private TextureRegion tRegion = new TextureRegion(new Texture("enemy_basic.png"), 0,0,200,200);
 	
-	public Hero(){
+	public EnemyBasic(){
 		this.setSize(50, 50);
-		this.setPosition(320, 1);
+		this.setPosition(320, 400);
 	}
 	
 	@Override
@@ -26,5 +26,4 @@ public class Hero extends Actor{
 			batch.draw(tRegion, getX(), getY(), getWidth(), getHeight());
 			//batch.setColor(color.r, color.g, color.b, color.a);
 	}
-
 }

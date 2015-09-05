@@ -3,6 +3,7 @@ package com.pompushka.collapso;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,19 +16,29 @@ public class CollapsoGame extends Game {
 	public StartScreen startScreen;
 	public GameScreen gameScreen;
 	
+	public MessageDispatcher msgDispatcher;
+	
 	@Override
 	public void create () {
+		Core.game = this;
+		
 		batch = new SpriteBatch();
 		
-		startScreen = new StartScreen(this);
-		gameScreen = new GameScreen(this);
+		msgDispatcher = new MessageDispatcher();
+		
+		startScreen = new StartScreen();
+		gameScreen = new GameScreen();
 		setScreen(startScreen);
+		
+		
 	}
 
 	@Override
 	public void render () {
 		super.render();
 	}
+	
+	
 	
 	@Override
 	public void dispose(){

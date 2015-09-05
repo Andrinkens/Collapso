@@ -6,17 +6,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pompushka.collapso.CollapsoGame;
+import com.pompushka.collapso.Core;
 
 public class StartScreen  implements Screen{
-
-	private CollapsoGame game;
 	private SpriteBatch batch;
 	
 	private Texture img;
 	
-	public StartScreen(final CollapsoGame game){
-		this.game = game;
-		this.batch = game.batch;
+	public StartScreen(){
+		this.batch = Core.game.batch;
 	}
 	
 	@Override
@@ -33,7 +31,7 @@ public class StartScreen  implements Screen{
 		//batch.draw(img, 0, 0);
 		batch.end();*/
 		
-		if (Gdx.input.isTouched())	game.setScreen(game.gameScreen);
+		if (Gdx.input.isTouched())	Core.game.setScreen(Core.game.gameScreen);
 	}
 
 	@Override

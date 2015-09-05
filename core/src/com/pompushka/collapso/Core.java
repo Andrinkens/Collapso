@@ -8,6 +8,11 @@ public abstract class Core {
 	
 	public static final boolean stageRenderer = false;
 	
+	public static class Messages {
+		public static final int PADS = 1;
+		public static final int SCORE = 2;
+	}
+	
 /********************************************************************************
  * Basic graphics settings    
  */
@@ -27,4 +32,5 @@ public abstract class Core {
     	viewPortHeight = viewPortWidth / ratio;
     }
 /********************************************************************************/
+    
 }
