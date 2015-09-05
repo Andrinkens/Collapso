@@ -24,7 +24,7 @@ public class Scores extends Group implements Telegraph{
 		
 		label.setWidth(200f);
 		label.setHeight(20f);
-		label.setPosition(1,Core.applicationHeight-20);		
+		label.setPosition(5,Core.applicationHeight-5-label.getHeight());		
 		
 		this.addActor(label);
 	}

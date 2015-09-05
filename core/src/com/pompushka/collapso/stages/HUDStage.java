@@ -1,5 +1,6 @@
 package com.pompushka.collapso.stages;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,7 +14,15 @@ import com.pompushka.collapso.actors.Scores;
 
 public class HUDStage extends Stage{
 
-	Scores scores;
+	private Scores scores;
+	
+	public static class PadState{
+		public static final int PAD_LEFT_DN = 1;
+		public static final int PAD_LEFT_UP = 2;
+		public static final int PAD_RIGHT_DN = 3;
+		public static final int PAD_RIGHT_UP = 4;
+	}
+
 	
 	public HUDStage(Viewport viewport, SpriteBatch batch) {
 		super(viewport, batch);
@@ -22,18 +31,22 @@ public class HUDStage extends Stage{
 		Core.game.msgDispatcher.addListener(scores, Core.Messages.SCORE);
 		this.addActor(scores);
 		
+		PadListener pl = new PadListener();
+		
 		Actor leftPad = new Actor();
-		leftPad.setBounds(0, 0, 320, 300);
-		leftPad.addListener(new PadListener());
+		leftPad.setBounds(0, 0, Core.applicationWidth/2, Core.applicationHeight/2);
+		leftPad.addListener(pl);
 		leftPad.setName("PADLEFT");
 		
 		Actor rightPad = new Actor();
-		rightPad.setBounds(320, 0, 320, 300);
-		rightPad.addListener(new PadListener());
+		rightPad.setBounds(Core.applicationWidth/2, 0, Core.applicationWidth, Core.applicationHeight/2);
+		rightPad.addListener(pl);
 		rightPad.setName("PADRIGHT");
 		
 		this.addActor(leftPad);
 		this.addActor(rightPad);
+		
+		this.setKeyboardFocus(leftPad);
 		
 		this.setDebugAll(true);
 	}
@@ -46,23 +59,53 @@ public class HUDStage extends Stage{
 	public void resize(int width, int height){
 		this.getViewport().update(width, height, true);
 	}
-}
+	
+	class PadListener extends InputListener implements Telegraph{
 
-class PadListener extends InputListener implements Telegraph{
+	    @Override
+	    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+	    	if (event.getListenerActor().getName() == "PADLEFT")
+		    	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, PadState.PAD_LEFT_DN);
+	    	else 
+	    		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, PadState.PAD_RIGHT_DN);
+	        return true;
+	    }
 
-    @Override
-    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-    	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, event.getListenerActor().getName());
-    	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.SCORE, 100);
-        return true;
-    }
+	    @Override
+	    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+	    	if (event.getListenerActor().getName() == "PADLEFT")
+		    	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, PadState.PAD_LEFT_UP);
+	    	else 
+	    		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, PadState.PAD_RIGHT_UP);
+	    }
+	    
+	    @Override
+        public boolean keyDown(InputEvent event, int keycode) {
+            switch(keycode) {
+            	case Keys.LEFT:
+            		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, PadState.PAD_LEFT_DN);break;
+            	case Keys.RIGHT:
+            		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, PadState.PAD_RIGHT_DN);break;
+            }
+            return true;
+        }
+	    @Override
+        public boolean keyUp(InputEvent event, int keycode) {
+            switch(keycode) {
+            	case Keys.LEFT:
+            		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, PadState.PAD_LEFT_UP);break;
+            	case Keys.RIGHT:
+            		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.PADS, PadState.PAD_RIGHT_UP);break;
+            }
+            return true;
+        }	    
+	    
 
-    @Override
-    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-    }
-
-	@Override
-	public boolean handleMessage(Telegram msg) {
-		return false;
+		@Override
+		public boolean handleMessage(Telegram msg) {
+			return false;
+		}
 	}
 }
+
+
