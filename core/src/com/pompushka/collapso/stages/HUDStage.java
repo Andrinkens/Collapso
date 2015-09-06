@@ -48,7 +48,7 @@ public class HUDStage extends Stage{
 		
 		this.setKeyboardFocus(leftPad);
 		
-		this.setDebugAll(true);
+		this.setDebugAll(Core.GUI_RENDERER_STATE);
 	}
 	
 	@Override
