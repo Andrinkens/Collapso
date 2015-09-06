@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class EnemyBasic extends Actor implements Poolable{
 	
-	private TextureRegion tRegion = new TextureRegion(new Texture("enemy_basic.png"), 0,0,140,110);
+	private TextureRegion tRegion = new TextureRegion(new Texture("enemy_basic_red.png"), 0,0,140,110);
 	
 	private Rectangle bounds;
 	private boolean active = false;
