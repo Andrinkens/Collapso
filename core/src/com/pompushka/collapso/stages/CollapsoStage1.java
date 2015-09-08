@@ -34,7 +34,8 @@ public class CollapsoStage1 extends Stage implements Telegraph{
 	public void act (float delta){
 		super.act(delta);
 		enemyController.update();
-		collider.checkHits(hero.getGun().getBullets(), enemyController.getEnemies());
+		collider.checkBulletHits(hero.getGun().getBullets(), enemyController.getEnemies());
+		collider.checkMissileHits(hero, enemyController.getMissiles());
 	}
 		
 	public void resize(int width, int height){

@@ -1,5 +1,6 @@
 package com.pompushka.collapso.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.utils.Array;
@@ -7,7 +8,7 @@ import com.pompushka.collapso.Core;
 
 public class Collider implements Telegraph{
 
-	public void checkHits(Array<BulletBasic> bullets, Array<EnemyBasic> enemies){
+	public void checkBulletHits(Array<BulletBasic> bullets, Array<EnemyBasic> enemies){
         for (int i = enemies.size; --i >= 0;) {
             EnemyBasic enemy = enemies.get(i);
             if (enemy.getState()){
@@ -25,6 +26,17 @@ public class Collider implements Telegraph{
         }
 	}
 
+	public void checkMissileHits(Hero hero, Array<EnemyMissile> missiles){
+        for (int i = missiles.size; --i >= 0;) {
+            EnemyMissile missile = missiles.get(i);
+            if (missile.getBounds().overlaps(hero.getBounds())){
+            	missile.setState(false);
+            	Gdx.app.log("Collider", "Missile hits hero!");
+            	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.SCORE, -1000);
+            }
+        }
+	}
+	
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		// TODO Auto-generated method stub

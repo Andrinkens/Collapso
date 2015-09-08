@@ -22,6 +22,7 @@ import com.pompushka.collapso.Core;
 public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	
 	private TextureRegion tRegion1 = new TextureRegion(new Texture("enemy_basic_red.png"), 0,0,140,110);
+	private TextureRegion tRegion11 = new TextureRegion(new Texture("enemy_basic_red_1.png"), 0,0,140,110);
 	private TextureRegion tRegion2 = new TextureRegion(new Texture("enemy_basic_explo_1.png"), 0,0,140,110);
 	private TextureRegion tRegion3 = new TextureRegion(new Texture("enemy_basic_explo_2.png"), 0,0,140,110);
 	
@@ -48,9 +49,9 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	
 	public EnemyBasic(){
 		bounds = new Rectangle();
-		routineAnimation = new Animation(0.5f, tRegion1);
+		routineAnimation = new Animation(0.5f, tRegion1,tRegion11);
 		explodeAnimation = new Animation(0.5f, tRegion2, tRegion3);
-		//explodeAnimation.setPlayMode(PlayMode.LOOP);
+		routineAnimation.setPlayMode(PlayMode.LOOP);
 		explosionDuration = explodeAnimation.getAnimationDuration();
 	}
 	
@@ -101,7 +102,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	@Override
 	public void reset() {
 		if (this.getParent()!=null)	this.getParent().removeActor(this);
-		this.clearActions();
+		//this.clearActions();
 		alive = false;
 	}
 	

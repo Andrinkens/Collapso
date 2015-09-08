@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.pompushka.collapso.Core;
 import com.pompushka.collapso.stages.HUDStage;
@@ -17,10 +18,12 @@ public class Hero extends Actor implements Telegraph{
 	private int direction = 0;
 	private Color color;
 	private Gun gun;
+	private Rectangle bounds;
 	
 	public Hero(){
-		this.setSize(50, 50);
-		this.setPosition(320, 1);
+		bounds = new Rectangle();
+		this.setBounds(320, 1, 50, 50);
+		bounds.set(320, 1, 50, 50);
 		gun = new Gun();
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);
 	}
@@ -34,6 +37,7 @@ public class Hero extends Actor implements Telegraph{
 			if (newPos > 0 && newPos < Core.applicationWidth-getWidth())
 				setX(newPos);
 		}
+		bounds.setPosition(getX(), getY());	
 	}
 	
 	@Override
@@ -53,6 +57,10 @@ public class Hero extends Actor implements Telegraph{
 	public void moveStop(){
 		direction = 0;
 	}
+	
+	public Rectangle getBounds() {
+        return bounds;
+    }	
 	
 	public void setDirection(int dir){
 		direction = dir;
