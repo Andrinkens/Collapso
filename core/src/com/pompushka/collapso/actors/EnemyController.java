@@ -1,9 +1,8 @@
 package com.pompushka.collapso.actors;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,14 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.pompushka.collapso.Core;
 
-public class EnemyController{
+public class EnemyController implements Telegraph{
 	
 	private EnemyBasic enemy;
 	private Stage stage;
-	
-	private MoveByAction mbAction1 = new MoveByAction();
-	private MoveByAction mbAction2 = new MoveByAction();
 	
 	private final Array<EnemyBasic> activeEnemies = new Array<EnemyBasic>();
 	private final Pool<EnemyBasic> enemyPool = new Pool<EnemyBasic>() {
@@ -31,20 +28,12 @@ public class EnemyController{
     
     public EnemyController(Stage stage){
     	this.stage = stage;
+    	Core.game.msgDispatcher.addListener(this, Core.Messages.ENEMY_FREE);
+    	spawnEnemies();
     }
     
 	public void update(){
-		
-        for (int i = activeEnemies.size; --i >= 0;) {
-        	enemy = activeEnemies.get(i);
-			if (!enemy.getState())	{
-				enemyPool.free(enemy);
-				activeEnemies.removeIndex(i);
-			}
-        }
-        
-        if (activeEnemies.size == 0)
-        	spawnEnemies();
+
 	}
 	
 	private void spawnEnemies(){
@@ -59,6 +48,18 @@ public class EnemyController{
 	
 	public Array<EnemyBasic> getEnemies(){
 		return activeEnemies;
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		if (msg.message == Core.Messages.ENEMY_FREE){
+			enemy = (EnemyBasic) msg.extraInfo;
+			enemyPool.free(enemy);
+			activeEnemies.removeValue(enemy, true);
+		}
+        if (activeEnemies.size == 0)
+        spawnEnemies();
+		return false;
 	}
     
 }

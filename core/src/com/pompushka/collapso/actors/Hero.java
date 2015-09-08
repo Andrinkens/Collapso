@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.pompushka.collapso.Core;
 import com.pompushka.collapso.stages.HUDStage;
-import com.sun.javafx.scene.traversal.Direction;
 
 public class Hero extends Actor implements Telegraph{
 	
