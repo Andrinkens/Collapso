@@ -40,27 +40,27 @@ public class EnemyController implements Telegraph{
         }
     };
     
-    
-    
     public EnemyController(Stage stage){
     	this.stage = stage;
     	Core.game.msgDispatcher.addListener(this, Core.Messages.ENEMY_FREE);
     	Core.game.msgDispatcher.addListener(this, Core.Messages.MISSILE_FREE);
     	spawnEnemies();
-    	
+    	startShoting();
+    }
+    
+	public void update(){
+		
+	}
+	
+	private void startShoting(){
     	Timer.schedule(new Task(){
             @Override
             public void run() {
             	shot(activeEnemies.get(random.nextInt(activeEnemies.size)));
             }
-        }
-        , 1        //    (delay)
-        , 1     //    (seconds)
-    );
-    }
-    
-	public void update(){
-		
+        	}, 1        //    (delay)
+        	 , 1     //    (seconds)
+    	);
 	}
 	
 	private void spawnEnemies(){
