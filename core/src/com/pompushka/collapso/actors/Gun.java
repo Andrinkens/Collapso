@@ -9,7 +9,7 @@ import com.pompushka.collapso.Core;
 
 public class Gun implements Telegraph{
 
-	private int rate = 1;
+	private float rate = 2f;
 	private int counter = 0;
 	private boolean ready = true;
 	

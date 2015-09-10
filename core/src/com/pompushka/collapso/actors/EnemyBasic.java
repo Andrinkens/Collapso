@@ -6,6 +6,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.color;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.math.Interpolation.*;
 
 import java.util.Random;
 
@@ -18,10 +19,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.pompushka.collapso.Core;
 
@@ -42,7 +46,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	private float explosionDuration;
 	
 	private Rectangle bounds;
-	private int health = 100;
+	private int health = 50;
 	private int score = 50;
 	
 	private Color basicColor;
@@ -51,11 +55,29 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	private float velX;
 	private float velY;
 	
-	private Action behaviour;
-	
 	private boolean alive = false;
 	//private CurrentState state;
 	
+	private void initShoting(){
+    	Timer.schedule(new Task(){
+            @Override
+            public void run() {
+            	//shot(activeEnemies.get(random.nextInt(activeEnemies.size)));
+            	shot();
+            }
+        	}, (new Random().nextFloat())*3        //    (delay)
+        	 , 2+(new Random().nextFloat())*5     //    (seconds)
+    	);
+    	stopShoting();
+	}
+	
+	private void startShoting(){
+		Timer.instance().start();
+	}
+	
+	private void stopShoting(){
+		Timer.instance().stop();
+	}
 	
 	Random random = new Random();
 	
@@ -65,20 +87,20 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		explodeAnimation = new Animation(0.5f, tRegion2, tRegion3);
 		routineAnimation.setPlayMode(PlayMode.LOOP);
 		explosionDuration = explodeAnimation.getAnimationDuration();
-		behaviour = parallel(Actions.moveBy(0,-300, 5f),sequence(Actions.moveBy(-50,0, 2.5f),Actions.moveBy(50,0, 2.5f)));
+		initShoting();
 	}
 	
 	public void init(float X, float Y){
 		this.setBounds(X, Y, 80, 60);
 		bounds.set(X, Y, 80, 60);
-		health = 100;
+		health = 50;
 		alive = true;
 		
 		basicColor = getColor();
 		hitColor = new Color(1,0,0,1);
 		this.setColor(basicColor.r, basicColor.g, basicColor.b, 1.0f);
 		currentAnimation = routineAnimation;
-		this.addAction(behaviour);
+		startShoting();
 	}
 	
 	public boolean hit(int damage){
@@ -116,7 +138,6 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	@Override
 	public void reset() {
 		if (this.getParent()!=null)	this.getParent().removeActor(this);
-		this.clearActions();
 		alive = false;
 	}
 	
@@ -128,6 +149,8 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		//state = CurrentState.EXPLODING;
 		currentAnimation = explodeAnimation;
 		elapsedTime = 0;
+		this.clearActions();
+		stopShoting();
 		alive = false;
 	}
 	
@@ -143,5 +166,9 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	public boolean handleMessage(Telegram msg) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void shot(){
+		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.MISSILE_SHOT, this);
 	}
 }
