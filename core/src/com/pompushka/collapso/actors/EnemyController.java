@@ -1,5 +1,10 @@
 package com.pompushka.collapso.actors;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -67,9 +72,10 @@ public class EnemyController implements Telegraph{
 		for (int i=0;i<4;i++)
 			for (int j=1;j<7;j++){
 				enemy = enemyPool.obtain();
-				enemy.init(j*stage.getWidth()/8, stage.getHeight()-stage.getHeight()/8-i*(stage.getHeight()/8));
+				enemy.init(j*stage.getWidth()/8, stage.getHeight()-i*(stage.getHeight()/8));
 				activeEnemies.add(enemy);
 				stage.addActor(enemy);
+				//enemy.addAction(fadeOut);
 			}
 	}
 	
@@ -106,5 +112,7 @@ public class EnemyController implements Telegraph{
 		
 		return false;
 	}
+	
+	
     
 }

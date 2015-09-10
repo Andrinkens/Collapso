@@ -1,7 +1,11 @@
 package com.pompushka.collapso.actors;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.color;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.color;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 
 import java.util.Random;
 
@@ -15,9 +19,12 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.pompushka.collapso.Core;
+
 
 public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	
@@ -41,6 +48,11 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	private Color basicColor;
 	private Color hitColor;
 	
+	private float velX;
+	private float velY;
+	
+	private Action behaviour;
+	
 	private boolean alive = false;
 	//private CurrentState state;
 	
@@ -53,6 +65,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		explodeAnimation = new Animation(0.5f, tRegion2, tRegion3);
 		routineAnimation.setPlayMode(PlayMode.LOOP);
 		explosionDuration = explodeAnimation.getAnimationDuration();
+		behaviour = parallel(Actions.moveBy(0,-300, 5f),sequence(Actions.moveBy(-50,0, 2.5f),Actions.moveBy(50,0, 2.5f)));
 	}
 	
 	public void init(float X, float Y){
@@ -65,6 +78,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		hitColor = new Color(1,0,0,1);
 		this.setColor(basicColor.r, basicColor.g, basicColor.b, 1.0f);
 		currentAnimation = routineAnimation;
+		this.addAction(behaviour);
 	}
 	
 	public boolean hit(int damage){
@@ -102,7 +116,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	@Override
 	public void reset() {
 		if (this.getParent()!=null)	this.getParent().removeActor(this);
-		//this.clearActions();
+		this.clearActions();
 		alive = false;
 	}
 	
