@@ -119,7 +119,9 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	@Override
 	public void act (float delta){
 		super.act(delta);
-		bounds.setPosition(getX(), getY());	
+		bounds.setPosition(getX(), getY());
+		if (getY() < -10) 
+			this.setPosition(getX(), Core.applicationHeight);
 	}
 	
 	@Override

@@ -20,6 +20,7 @@ public abstract class Core {
 		public static final int ENEMY_FREE = 5;
 		public static final int MISSILE_SHOT = 6;
 		public static final int MISSILE_FREE = 7;
+		public static final int LIVE = 8;
 	}
 	
 	

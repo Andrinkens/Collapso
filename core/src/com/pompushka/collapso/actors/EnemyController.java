@@ -71,10 +71,10 @@ public class EnemyController implements Telegraph{
 				enemy.addAction(parallel(Actions.moveBy(0,-900, 5f),sequence(Actions.moveBy(-50,0, 2.5f,Interpolation.sine),Actions.moveBy(50,0, 2.5f,Interpolation.sine))));
 			}*/
 		enemy = spawnEnemy(100, stage.getHeight()+300);
-		enemy.addAction(parallel(Actions.moveBy(0,-900, 10f),forever(sequence(Actions.moveBy(100,0, 2.5f,Interpolation.sine),Actions.moveBy(-100,0, 2.5f,Interpolation.sine)))));
+		enemy.addAction(parallel(Actions.moveBy(0,-9000, 100f),forever(sequence(Actions.moveBy(100,0, 2.5f,Interpolation.sine),Actions.moveBy(-100,0, 2.5f,Interpolation.sine)))));
 
 		enemy = spawnEnemy(stage.getWidth()-100, stage.getHeight()+300);
-		enemy.addAction(parallel(Actions.moveBy(0,-900, 10f),forever(sequence(Actions.moveBy(-50,0, 2.5f,Interpolation.sine),Actions.moveBy(50,0, 2.5f,Interpolation.sine)))));
+		enemy.addAction(parallel(Actions.moveBy(0,-9000, 100f),forever(sequence(Actions.moveBy(-50,0, 2.5f,Interpolation.sine),Actions.moveBy(50,0, 2.5f,Interpolation.sine)))));
 
 	}
 	

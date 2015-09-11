@@ -32,7 +32,7 @@ public class Collider implements Telegraph{
             if (missile.getBounds().overlaps(hero.getBounds())){
             	missile.setState(false);
             	Gdx.app.log("Collider", "Missile hits hero!");
-            	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.SCORE, -1000);
+            	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.LIVE, -1);
             }
         }
 	}
