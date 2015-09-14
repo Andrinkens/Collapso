@@ -8,12 +8,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 import com.pompushka.collapso.stages.HUDStage;
 
 public class Hero extends Actor implements Telegraph{
 	
-	private TextureRegion tRegion = new TextureRegion(new Texture("hero.png"), 0,0,200,200);
+	private TextureRegion tRegion = Assets.hero;
 	private int velocity = Core.HERO_SPEED;
 	private int direction = 0;
 	private Color color;

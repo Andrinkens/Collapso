@@ -21,6 +21,7 @@ public class CollapsoGame extends Game {
 	@Override
 	public void create () {
 		Core.game = this;
+		Assets.load();
 		
 		batch = new SpriteBatch();
 		

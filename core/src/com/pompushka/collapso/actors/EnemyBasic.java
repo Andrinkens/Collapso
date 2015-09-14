@@ -27,15 +27,16 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 
 
 public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	
-	private TextureRegion tRegion1 = new TextureRegion(new Texture("enemy_basic_red.png"), 0,0,140,110);
-	private TextureRegion tRegion11 = new TextureRegion(new Texture("enemy_basic_red_1.png"), 0,0,140,110);
-	private TextureRegion tRegion2 = new TextureRegion(new Texture("enemy_basic_explo_1.png"), 0,0,140,110);
-	private TextureRegion tRegion3 = new TextureRegion(new Texture("enemy_basic_explo_2.png"), 0,0,140,110);
+	//private TextureRegion tRegion1 = new TextureRegion(new Texture("enemy_basic_red.png"), 0,0,140,110);
+	//private TextureRegion tRegion11 = new TextureRegion(new Texture("enemy_basic_red_1.png"), 0,0,140,110);
+	//private TextureRegion tRegion2 = new TextureRegion(new Texture("enemy_basic_explo_1.png"), 0,0,140,110);
+	//private TextureRegion tRegion3 = new TextureRegion(new Texture("enemy_basic_explo_2.png"), 0,0,140,110);
 	
 	private TextureRegion currentFrame;
 	private Animation currentAnimation;
@@ -83,8 +84,8 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	
 	public EnemyBasic(){
 		bounds = new Rectangle();
-		routineAnimation = new Animation(0.5f, tRegion1,tRegion11);
-		explodeAnimation = new Animation(0.5f, tRegion2, tRegion3);
+		routineAnimation = Assets.enemyAnim;
+		explodeAnimation = Assets.enemyblows;
 		routineAnimation.setPlayMode(PlayMode.LOOP);
 		explosionDuration = explodeAnimation.getAnimationDuration();
 		initShoting();

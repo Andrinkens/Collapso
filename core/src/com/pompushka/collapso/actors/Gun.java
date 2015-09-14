@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 
 public class Gun implements Telegraph{
@@ -32,6 +33,7 @@ public class Gun implements Telegraph{
 		bullet = bulletPool.obtain();
 		activeBullets.add(bullet);
 		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.SHOOT, bullet);
+		Assets.playSound(Assets.shotSound);
 		ready = false;
 		return true;
 	}

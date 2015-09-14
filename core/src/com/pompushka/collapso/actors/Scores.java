@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 
 public class Scores extends Group implements Telegraph{
@@ -18,7 +19,7 @@ public class Scores extends Group implements Telegraph{
 	int score = 0;
 	
 	public Scores(){
-		BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/font1.fnt"));
+		BitmapFont font = Assets.font;
 		
 		LabelStyle ls = new LabelStyle (font,Color.WHITE);
 		label = new Label("0", ls); 

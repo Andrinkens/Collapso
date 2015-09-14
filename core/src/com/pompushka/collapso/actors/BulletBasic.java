@@ -10,11 +10,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 
 public class BulletBasic extends Actor implements Poolable, Telegraph{
 
-	private TextureRegion tRegion = new TextureRegion(new Texture("bullet_basic.png"), 0,0,10,20);
+	private TextureRegion tRegion = Assets.bullet;
 	
 	private int speed=Core.BULLET_BASIC_SPEED;
 	private boolean active = false;
