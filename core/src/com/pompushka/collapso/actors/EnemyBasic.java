@@ -6,6 +6,9 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.color;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.forever;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateTo;
 import static com.badlogic.gdx.math.Interpolation.*;
 
 import java.util.Random;
@@ -93,6 +96,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	
 	public void init(float X, float Y){
 		this.setBounds(X, Y, 80, 60);
+		setOrigin(getWidth()/2, getHeight()/2);
 		bounds.set(X, Y, 80, 60);
 		health = 50;
 		alive = true;
@@ -101,6 +105,8 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		hitColor = new Color(1,0,0,1);
 		this.setColor(basicColor.r, basicColor.g, basicColor.b, 1.0f);
 		currentAnimation = routineAnimation;
+		this.addAction(forever(sequence(Actions.rotateTo(10f, 0.8f),Actions.rotateTo(-10,0.8f))));
+
 		startShoting();
 	}
 	
@@ -131,7 +137,8 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		currentFrame = currentAnimation.getKeyFrame(elapsedTime);
 		Color color = getColor();
 		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-		batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+		//batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight(), );
+		batch.draw(currentFrame, getX(), getY(),  getOriginX(), getOriginY(), getWidth(), getHeight(),getScaleX(), getScaleY(), getRotation());
 		batch.setColor(color.r, color.g, color.b, color.a);
 		
 		if (!alive && elapsedTime>=explosionDuration)

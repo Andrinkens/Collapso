@@ -3,6 +3,7 @@ package com.pompushka.collapso;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,7 +25,7 @@ public class Assets {
 	public static Sound shotSound;
 	
 	public static Texture loadTexture (String file) {
-		return new Texture(Gdx.files.internal(file));
+		return new Texture(Gdx.files.internal(file),true);
 	}
 	
 	public static void load () {
@@ -39,6 +40,8 @@ public class Assets {
 		bullet = new TextureRegion(bulletTex, 0,0,10,20);
 		missile = new TextureRegion(bulletTex, 0,0,10,20);
 		
+		enemyTex[0].setFilter(TextureFilter.MipMap, TextureFilter.Nearest);
+		enemyTex[1].setFilter(TextureFilter.MipMap, TextureFilter.Nearest);
 		
 		enemyAnim = new Animation(0.5f, new TextureRegion(enemyTex[0], 0,0,140,110), new TextureRegion(enemyTex[1], 0,0,140,110));
 		enemyblows = new Animation(0.5f, new TextureRegion(enemyTex[2], 0,0,140,110), new TextureRegion(enemyTex[3], 0,0,140,110));

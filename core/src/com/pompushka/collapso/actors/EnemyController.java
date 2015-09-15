@@ -6,6 +6,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.forever;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateTo;
 
 import java.util.Random;
 
@@ -61,21 +63,12 @@ public class EnemyController implements Telegraph{
 		
 	}
 	
-	private void spawnEnemies(){/*
-		for (int i=0;i<4;i++)
-			for (int j=1;j<7;j++){
-				enemy = enemyPool.obtain();
-				enemy.init(j*stage.getWidth()/8, stage.getHeight()-i*(stage.getHeight()/8)+300);
-				activeEnemies.add(enemy);
-				stage.addActor(enemy);
-				enemy.addAction(parallel(Actions.moveBy(0,-900, 5f),sequence(Actions.moveBy(-50,0, 2.5f,Interpolation.sine),Actions.moveBy(50,0, 2.5f,Interpolation.sine))));
-			}*/
-		enemy = spawnEnemy(100, stage.getHeight()+300);
+	private void spawnEnemies(){
+		enemy = spawnEnemy(100, 300);
 		enemy.addAction(parallel(Actions.moveBy(0,-9000, 100f),forever(sequence(Actions.moveBy(100,0, 2.5f,Interpolation.sine),Actions.moveBy(-100,0, 2.5f,Interpolation.sine)))));
 
-		enemy = spawnEnemy(stage.getWidth()-100, stage.getHeight()+300);
+		enemy = spawnEnemy(600, stage.getHeight()+300);
 		enemy.addAction(parallel(Actions.moveBy(0,-9000, 100f),forever(sequence(Actions.moveBy(-50,0, 2.5f,Interpolation.sine),Actions.moveBy(50,0, 2.5f,Interpolation.sine)))));
-
 	}
 	
 	private EnemyBasic spawnEnemy(float X, float Y){

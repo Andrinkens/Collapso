@@ -25,6 +25,8 @@ public class Hero extends Actor implements Telegraph{
 		bounds = new Rectangle();
 		this.setBounds(320, 1, 50, 50);
 		bounds.set(320, 1, 50, 50);
+		//this.setBounds(3.0f, 0.5f, 0.5f, 0.5f);
+		//bounds.set(3, 0, 0.5f, 0.5f);
 		gun = new Gun();
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);
 	}
