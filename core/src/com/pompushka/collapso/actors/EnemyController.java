@@ -64,11 +64,11 @@ public class EnemyController implements Telegraph{
 	}
 	
 	private void spawnEnemies(){
-		enemy = spawnEnemy(100, 300);
-		enemy.addAction(parallel(Actions.moveBy(0,-9000, 100f),forever(sequence(Actions.moveBy(100,0, 2.5f,Interpolation.sine),Actions.moveBy(-100,0, 2.5f,Interpolation.sine)))));
+		enemy = spawnEnemy(1, Core.viewPortHeight);
+		enemy.addAction(parallel(Actions.moveBy(0,-90, 100f),forever(sequence(Actions.moveBy(1,0, 2.5f,Interpolation.sine),Actions.moveBy(-1,0, 2.5f,Interpolation.sine)))));
 
-		enemy = spawnEnemy(600, stage.getHeight()+300);
-		enemy.addAction(parallel(Actions.moveBy(0,-9000, 100f),forever(sequence(Actions.moveBy(-50,0, 2.5f,Interpolation.sine),Actions.moveBy(50,0, 2.5f,Interpolation.sine)))));
+		enemy = spawnEnemy(Core.viewPortWidth-1-1, Core.viewPortHeight);
+		enemy.addAction(parallel(Actions.moveBy(0,-90, 100f),forever(sequence(Actions.moveBy(-0.5f,0, 2.5f,Interpolation.sine),Actions.moveBy(0.5f,0, 2.5f,Interpolation.sine)))));
 	}
 	
 	private EnemyBasic spawnEnemy(float X, float Y){
@@ -94,7 +94,7 @@ public class EnemyController implements Telegraph{
 	
 	private void shot(EnemyBasic enemy){
 		missile = missilePool.obtain();
-		missile.init(enemy.getX()+enemy.getBounds().width/2-missile.getWidth(), enemy.getY());
+		missile.init(enemy.getX()+enemy.getBounds().width*0.5f-missile.getWidth(), enemy.getY());
 		activeMissiles.add(missile);
 		stage.addActor(missile);
 	}

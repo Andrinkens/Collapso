@@ -18,7 +18,7 @@ public class EnemyMissile extends Actor implements Poolable, Telegraph{
 	private TextureRegion tRegion = Assets.missile;
 	
 	
-	private int speed=Core.BULLET_BASIC_SPEED/4;
+	private float speed=Core.BULLET_BASIC_SPEED/4;
 	private Color color;
 	private Rectangle bounds;
 	private int damage = 50;
@@ -31,8 +31,8 @@ public class EnemyMissile extends Actor implements Poolable, Telegraph{
 	
 	public void init(float X, float Y){
 		Gdx.app.log("EnemyMissile", "Missile spawn!");
-		this.setBounds(X, Y, 10, 15);
-		bounds.set(X, Y, 10, 15);
+		this.setBounds(X, Y, 0.05f, 0.15f);
+		bounds.set(X, Y, 0.05f, 0.15f);
 		alive = true;
 	}
 	

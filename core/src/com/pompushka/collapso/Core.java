@@ -9,8 +9,8 @@ public abstract class Core {
 	public static final boolean GAME_RENDERER_STATE = false;
 	public static final boolean GUI_RENDERER_STATE = false;
 	
-	public static final int HERO_SPEED = 5;
-	public static final int BULLET_BASIC_SPEED = 10;
+	public static final float HERO_SPEED = 0.1f;
+	public static final float BULLET_BASIC_SPEED = 0.25f;
 	
 	public static class Messages {
 		public static final int PADS = 1;

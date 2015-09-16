@@ -17,7 +17,7 @@ public class BulletBasic extends Actor implements Poolable, Telegraph{
 
 	private TextureRegion tRegion = Assets.bullet;
 	
-	private int speed=Core.BULLET_BASIC_SPEED;
+	private float speed=Core.BULLET_BASIC_SPEED;
 	private boolean active = false;
 	private Rectangle bounds;
 	private int damage = 50;
@@ -28,8 +28,8 @@ public class BulletBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public void init(float X, float Y){
-		this.setBounds(X, Y, 20, 30);
-		bounds.set(X, Y, 20, 30);
+		this.setBounds(X, Y, 0.1f, 0.3f);
+		bounds.set(X, Y, 0.1f, 0.3f);
 		active = true;
 	}
 	

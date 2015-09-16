@@ -15,7 +15,7 @@ import com.pompushka.collapso.stages.HUDStage;
 public class Hero extends Actor implements Telegraph{
 	
 	private TextureRegion tRegion = Assets.hero;
-	private int velocity = Core.HERO_SPEED;
+	private float velocity = Core.HERO_SPEED;
 	private int direction = 0;
 	private Color color;
 	private Gun gun;
@@ -23,10 +23,8 @@ public class Hero extends Actor implements Telegraph{
 	
 	public Hero(){
 		bounds = new Rectangle();
-		this.setBounds(320, 1, 50, 50);
-		bounds.set(320, 1, 50, 50);
-		//this.setBounds(3.0f, 0.5f, 0.5f, 0.5f);
-		//bounds.set(3, 0, 0.5f, 0.5f);
+		this.setBounds(Core.viewPortWidth*0.5f, 0, 1, 1);
+		bounds.set(Core.viewPortWidth*0.5f, 0, 1, 1);
 		gun = new Gun();
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);
 	}
@@ -37,7 +35,7 @@ public class Hero extends Actor implements Telegraph{
 		gun.act();
 		if (direction!=0){
 			float newPos = getX()+velocity*direction;
-			if (newPos > 0 && newPos < Core.applicationWidth-getWidth())
+			if (newPos > 0 && newPos < Core.viewPortWidth-getWidth())
 				setX(newPos);
 		}
 		bounds.setPosition(getX(), getY());	

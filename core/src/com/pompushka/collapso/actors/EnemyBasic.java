@@ -95,9 +95,9 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public void init(float X, float Y){
-		this.setBounds(X, Y, 80, 60);
+		this.setBounds(X, Y, 1.5f,1);
 		setOrigin(getWidth()/2, getHeight()/2);
-		bounds.set(X, Y, 80, 60);
+		bounds.set(X, Y, 1.5f,1);
 		health = 50;
 		alive = true;
 		

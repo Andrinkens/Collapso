@@ -57,7 +57,7 @@ public class HUDStage extends Stage{
 	}
 	
 	public void resize(int width, int height){
-		this.getViewport().update(width, height, true);
+		//this.getViewport().update(width, height, true);
 	}
 	
 	class PadListener extends InputListener implements Telegraph{

@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pompushka.collapso.Core;
 import com.pompushka.collapso.actors.BulletBasic;
@@ -45,9 +46,10 @@ public class CollapsoStage1 extends Stage implements Telegraph{
 		collider.checkMissileHits(hero, enemyController.getMissiles());
 	}
 		
-	public void resize(float width, float height){
-		this.getViewport().setWorldSize(width, height);
-		this.getViewport().apply();
+	public void resize(int width, int height){
+		this.getViewport().update(width, height);
+		Gdx.app.log("width",this.getWidth() + "");
+		Gdx.app.log("heeight",this.getHeight() + "");
 	}
 	
 	public boolean handleMessage(Telegram msg) {
