@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.CollapsoGame;
 import com.pompushka.collapso.Core;
-import com.pompushka.collapso.stages.CollapsoStage1;
+import com.pompushka.collapso.stages.CollapsoStage;
 import com.pompushka.collapso.stages.HUDStage;
 
 public class GameScreen implements Screen{
@@ -22,7 +22,7 @@ public class GameScreen implements Screen{
 	private SpriteBatch batch;
 	
 	private OrthographicCamera camera1, camera2;
-	private CollapsoStage1 stage1;
+	private Stage stage;
 	private Stage hudStage;
 	private Viewport vp1,vp2;
 	public GameScreen(){
@@ -41,7 +41,7 @@ public class GameScreen implements Screen{
 		vp1 = new StretchViewport(Core.viewPortWidth,Core.viewPortHeight,camera1);
 		vp2 = new ScreenViewport(camera2);
 		
-		stage1 = new CollapsoStage1(vp1, batch);
+		stage = new CollapsoStage(vp1, batch);
 		hudStage = new HUDStage(vp2, batch);
 		
 	}
@@ -60,13 +60,13 @@ public class GameScreen implements Screen{
 		batch.setProjectionMatrix(camera1.combined);
 		
 		vp1.apply();
-		stage1.draw();
+		stage.draw();
 		
 		batch.setProjectionMatrix(camera2.combined);
 		vp2.apply();
 		hudStage.draw();
 		
-		stage1.act(delta);
+		stage.act(delta);
 		hudStage.act(delta);
 		
 		Core.game.msgDispatcher.update(delta);//??
@@ -77,7 +77,8 @@ public class GameScreen implements Screen{
 		// TODO Auto-generated method stub
 		Core.resize(width, height);
 		//vp.update(width, height);
-		stage1.resize(width, height);
+		//stage.resize(width, height);
+		vp1.update(width, height);
 	}
 
 	@Override

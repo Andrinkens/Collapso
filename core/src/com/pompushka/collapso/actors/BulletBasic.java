@@ -28,9 +28,10 @@ public class BulletBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public void init(float X, float Y){
-		this.setBounds(X, Y, 0.1f, 0.3f);
-		bounds.set(X, Y, 0.1f, 0.3f);
+		this.setBounds(X, Y, 0.2f, 0.4f);
+		bounds.set(X, Y, 0.2f, 0.4f);
 		active = true;
+		Assets.playSound(Assets.shotSound);
 	}
 	
 	@Override

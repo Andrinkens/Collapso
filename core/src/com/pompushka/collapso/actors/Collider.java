@@ -8,6 +8,19 @@ import com.pompushka.collapso.Core;
 
 public class Collider implements Telegraph{
 
+	private PoolAdaptor pool;
+	private Hero hero;
+	
+	public Collider(PoolAdaptor pool, Hero hero){
+		this.pool = pool;
+		this.hero = hero;
+	}
+	
+	public void update(){
+		checkBulletHits(pool.getBullets(), pool.getEnemies());
+		checkMissileHits(hero, pool.getMissiles());
+	}
+	
 	public void checkBulletHits(Array<BulletBasic> bullets, Array<EnemyBasic> enemies){
         for (int i = enemies.size; --i >= 0;) {
             EnemyBasic enemy = enemies.get(i);
@@ -31,7 +44,6 @@ public class Collider implements Telegraph{
             EnemyMissile missile = missiles.get(i);
             if (missile.getBounds().overlaps(hero.getBounds())){
             	missile.setState(false);
-            	Gdx.app.log("Collider", "Missile hits hero!");
             	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.LIVE, -1);
             }
         }

@@ -10,35 +10,40 @@ import com.pompushka.collapso.Core;
 
 public class Gun implements Telegraph{
 
+	public class BulletInfo{
+		public float X;
+		public float Y;	
+		public int BulletType;
+		
+		public BulletInfo(float X, float Y, int BulletType){
+			this.X = X;
+			this.Y = Y;
+			this.BulletType = BulletType;
+		}
+	}
+	
 	private float rate = 2f;
 	private int counter = 0;
 	private boolean ready = true;
+	private float X;
+	private float Y;
+	public float offsetX;
+	public float offsetY;	
 	
-	private BulletBasic bullet;
-	
-    private final Array<BulletBasic> activeBullets = new Array<BulletBasic>();
-    
-	private final Pool<BulletBasic> bulletPool = new Pool<BulletBasic>() {
-        @Override
-        protected BulletBasic newObject() {
-            return new BulletBasic();
-        }
-    };
-	
-	public Gun(){
-		Core.game.msgDispatcher.addListener(this, Core.Messages.BULLET_FREE);
+	public Gun(float offsetX, float offsetY){
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 	}
 	
 	public boolean shoot(){
-		bullet = bulletPool.obtain();
-		activeBullets.add(bullet);
-		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.SHOOT, bullet);
-		Assets.playSound(Assets.shotSound);
+		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.BULLET_SHOT, new BulletInfo(X,Y,0));
 		ready = false;
 		return true;
 	}
 	
-	public void act(){
+	public void update(float X, float Y){
+		this.X = offsetX+X;
+		this.Y = offsetY+Y;
 		counter++;
 		if (counter>=rate*20){
 			counter = 0;
@@ -46,18 +51,9 @@ public class Gun implements Telegraph{
 			shoot();
 		}
 	}
-	
-	public Array<BulletBasic> getBullets(){
-		return activeBullets;
-	}
 
 	@Override
 	public boolean handleMessage(Telegram msg) {
-		if (msg.message == Core.Messages.BULLET_FREE){
-			bullet = (BulletBasic) msg.extraInfo;
-			bulletPool.free(bullet);
-			activeBullets.removeValue(bullet, true);
-		}
 		return false;
 	}
 	

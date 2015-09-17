@@ -10,17 +10,17 @@ public abstract class Core {
 	public static final boolean GUI_RENDERER_STATE = false;
 	
 	public static final float HERO_SPEED = 0.1f;
-	public static final float BULLET_BASIC_SPEED = 0.25f;
+	public static final float BULLET_BASIC_SPEED = 0.15f;
 	
 	public static class Messages {
-		public static final int PADS = 1;
-		public static final int SCORE = 2;
-		public static final int SHOOT = 3;
-		public static final int BULLET_FREE = 4;
-		public static final int ENEMY_FREE = 5;
-		public static final int MISSILE_SHOT = 6;
-		public static final int MISSILE_FREE = 7;
-		public static final int LIVE = 8;
+		public static final int PADS = 1;//Hero
+		public static final int SCORE = 2;//Collider,Scores
+		public static final int BULLET_SHOT = 3;//Gun,PoolAdaptor
+		public static final int BULLET_FREE = 4;//PoolAdaptor
+		public static final int ENEMY_FREE = 5;//PoolAdaptor
+		public static final int MISSILE_SHOT = 6;//EnemyBasic, PoolAdaptor
+		public static final int MISSILE_FREE = 7;//PoolAdaptor
+		public static final int LIVE = 8;//Collider,Scores
 	}
 	
 	

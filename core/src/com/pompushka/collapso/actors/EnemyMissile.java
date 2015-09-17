@@ -25,14 +25,12 @@ public class EnemyMissile extends Actor implements Poolable, Telegraph{
 	private boolean alive = false;
 	
 	public EnemyMissile(){
-		Gdx.app.log("EnemyMissile", "Missile creates!");
 		bounds = new Rectangle();
 	}
 	
 	public void init(float X, float Y){
-		Gdx.app.log("EnemyMissile", "Missile spawn!");
-		this.setBounds(X, Y, 0.05f, 0.15f);
-		bounds.set(X, Y, 0.05f, 0.15f);
+		this.setBounds(X, Y, 0.2f, 0.3f);
+		bounds.set(X, Y, 0.2f, 0.3f);
 		alive = true;
 	}
 	
