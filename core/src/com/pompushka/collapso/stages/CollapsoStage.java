@@ -18,6 +18,8 @@ import com.pompushka.collapso.actors.Collider;
 import com.pompushka.collapso.actors.EnemyBasic;
 import com.pompushka.collapso.actors.Hero;
 import com.pompushka.collapso.actors.PoolAdaptor;
+import com.pompushka.collapso.scripts.Scenario;
+import com.pompushka.collapso.scripts.Scene_1;
 
 
 public class CollapsoStage extends Stage{
@@ -25,6 +27,8 @@ public class CollapsoStage extends Stage{
 	private Hero hero;
 	private Collider collider;
 	private PoolAdaptor pool;
+	
+	Scene_1 scene;
     
 	public CollapsoStage(Viewport viewport, SpriteBatch batch) {
 		super(viewport, batch);
@@ -35,27 +39,21 @@ public class CollapsoStage extends Stage{
 		
 		setDebugAll(Core.GAME_RENDERER_STATE);
 		
-		spawnEnemies();
+		scene = new Scene_1(pool);
+		scene.start();
 	}
 	
 	@Override
 	public void act (float delta){
 		super.act(delta);
 		collider.update();
+		scene.checkEnd();
 	}
 		
 	public void resize(int width, int height){
 		this.getViewport().update(width, height);
 	}
-	
-	private void spawnEnemies(){
-		EnemyBasic enemy = pool.spawnEnemy(1, Core.viewPortHeight);
-		enemy.addAction(parallel(Actions.moveBy(0,-90, 100f),forever(sequence(Actions.moveBy(1,0, 2.5f,Interpolation.sine),Actions.moveBy(-1,0, 2.5f,Interpolation.sine)))));
 
-		enemy = pool.spawnEnemy(Core.viewPortWidth-1-1, Core.viewPortHeight);
-		enemy.addAction(parallel(Actions.moveBy(0,-90, 100f),forever(sequence(Actions.moveBy(-0.5f,0, 2.5f,Interpolation.sine),Actions.moveBy(0.5f,0, 2.5f,Interpolation.sine)))));
-	}
-	
 
 }
 
