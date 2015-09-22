@@ -72,6 +72,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
         	}, (new Random().nextFloat())*3        //    (delay)
         	 , 2+(new Random().nextFloat())*5     //    (seconds)
     	);
+    	
     	stopShoting();
 	}
 	
@@ -105,7 +106,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		hitColor = new Color(1,0,0,1);
 		this.setColor(basicColor.r, basicColor.g, basicColor.b, 1.0f);
 		currentAnimation = routineAnimation;
-		this.addAction(forever(sequence(Actions.rotateTo(10f, 0.8f),Actions.rotateTo(-10,0.8f))));
+		//this.addAction(forever(sequence(Actions.rotateTo(10f, 0.8f),Actions.rotateTo(-10,0.8f))));
 
 		startShoting();
 	}
@@ -149,6 +150,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	public void reset() {
 		if (this.getParent()!=null)	this.getParent().removeActor(this);
 		alive = false;
+		//Gdx.app.log("Enemy", "Dead");
 	}
 	
 	public boolean getState(){
@@ -179,6 +181,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public void shot(){
+		//Gdx.app.log("Enemy", "Shot");
 		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.MISSILE_SHOT, this);
 	}
 }

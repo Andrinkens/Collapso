@@ -36,7 +36,7 @@ public class Scene_1 extends Scenario{
 	
 	private boolean nextScript(){
 		if (scripts.indexOf(currentAction, true) < scripts.size-1){
-			currentAction = scripts.get(scripts.indexOf(currentAction, true) + 1);
+			currentAction = scripts.get(scripts.indexOf(currentAction, false) + 1);
 			currentAction.start();
 			return false;
 		}
@@ -47,11 +47,21 @@ public class Scene_1 extends Scenario{
 	private class Script_1 extends Script{
 		
 		public void start(){
-			EnemyBasic enemy = pool.spawnEnemy(1, Core.viewPortHeight);
-			enemy.addAction(parallel(Actions.moveBy(0,-90, 100f),forever(sequence(Actions.moveBy(1,0, 2.5f,Interpolation.sine),Actions.moveBy(-1,0, 2.5f,Interpolation.sine)))));
+			for (int i = 0;i<5;i++)
+				for (int j = 0;j<3;j++){
+					EnemyBasic enemy = pool.spawnEnemy(1f+i*1.5f, Core.viewPortHeight-1-j);
+					//enemy.addAction(forever(sequence(Actions.moveBy(1,0, 2.5f,Interpolation.sine),Actions.moveBy(-1,0, 2.5f,Interpolation.sine))));
+					enemy.addAction(forever(sequence(Actions.moveBy(1,0, 2.5f),Actions.moveBy(-1,0, 2.5f))));
+				}
+				
+			
 
-			enemy = pool.spawnEnemy(Core.viewPortWidth-1-1, Core.viewPortHeight);
-			enemy.addAction(parallel(Actions.moveBy(0,-90, 100f),forever(sequence(Actions.moveBy(-0.5f,0, 2.5f,Interpolation.sine),Actions.moveBy(0.5f,0, 2.5f,Interpolation.sine)))));
+			
+			//EnemyBasic enemy = pool.spawnEnemy(1, Core.viewPortHeight-1);
+			//enemy.addAction(parallel(Actions.moveBy(0,-90, 100f),forever(sequence(Actions.moveBy(1,0, 2.5f,Interpolation.sine),Actions.moveBy(-1,0, 2.5f,Interpolation.sine)))));
+
+			//enemy = pool.spawnEnemy(Core.viewPortWidth-1-1, Core.viewPortHeight-1);
+			//enemy.addAction(parallel(Actions.moveBy(0,-90, 100f),forever(sequence(Actions.moveBy(-0.5f,0, 2.5f,Interpolation.sine),Actions.moveBy(0.5f,0, 2.5f,Interpolation.sine)))));
 		}
 		
 		public boolean checkEnd(){
