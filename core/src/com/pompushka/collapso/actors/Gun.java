@@ -22,31 +22,34 @@ public class Gun implements Telegraph{
 		}
 	}
 	
-	private float rate = 2f;
-	private int counter = 0;
+	private Hero hero;
+	
+	private float rate = 0.5f;
+	private float elapsedTime = 0;
 	private boolean ready = true;
 	private float X;
 	private float Y;
 	public float offsetX;
 	public float offsetY;	
 	
-	public Gun(float offsetX, float offsetY){
-		this.offsetX = offsetX;
-		this.offsetY = offsetY;
+	public Gun(Hero hero){
+		this.hero = hero;
+		this.offsetX = this.hero.getWidth()/2;
+		this.offsetY = this.hero.getHeight();
 	}
 	
 	public boolean shoot(){
-		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.BULLET_SHOT, new BulletInfo(X,Y,0));
+		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.BULLET_SHOT, new BulletInfo(hero.getX()+offsetX,hero.getY()+offsetY,0));
 		ready = false;
 		return true;
 	}
 	
-	public void update(float X, float Y){
-		this.X = offsetX+X;
-		this.Y = offsetY+Y;
-		counter++;
-		if (counter>=rate*20){
-			counter = 0;
+	public void update(float delta){
+		//this.X = offsetX+hero.getX();
+		//this.Y = offsetY+hero.getY();
+		elapsedTime+=delta;
+		if (elapsedTime>=rate){
+			elapsedTime = 0;
 			ready = true;
 			shoot();
 		}

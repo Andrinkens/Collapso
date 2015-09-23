@@ -25,14 +25,14 @@ public class Hero extends Actor implements Telegraph{
 		bounds = new Rectangle();
 		this.setBounds(Core.viewPortWidth*0.5f, 0, 1, 1);
 		bounds.set(Core.viewPortWidth*0.5f, 0, 1, 1);
-		gun = new Gun(getWidth()/2, getHeight());
+		gun = new Gun(this);
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);
 	}
 	
 	@Override
 	public void act (float delta){
 		super.act(delta);
-		gun.update(getX(), getY());
+		gun.update(delta);
 		if (direction!=0){
 			float newPos = getX()+velocity*direction;
 			if (newPos > 0 && newPos < Core.viewPortWidth-getWidth())

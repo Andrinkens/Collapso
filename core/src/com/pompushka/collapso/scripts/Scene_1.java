@@ -20,7 +20,7 @@ public class Scene_1 extends Scenario{
 	public Scene_1(PoolAdaptor pool){
 		this.pool = pool;
 		scripts.add(new Script_1());
-		scripts.add(new Script_2());
+		scripts.add(new Script_1());
 	}
 	
 	public void start(){

@@ -60,31 +60,16 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	private float velY;
 	
 	private boolean alive = false;
-	//private CurrentState state;
 	
-	private void initShoting(){
-    	Timer.schedule(new Task(){
-            @Override
-            public void run() {
-            	//shot(activeEnemies.get(random.nextInt(activeEnemies.size)));
-            	shot();
-            }
-        	}, (new Random().nextFloat())*3        //    (delay)
-        	 , 2+(new Random().nextFloat())*5     //    (seconds)
-    	);
-    	
-    	stopShoting();
-	}
+	private EnemyLauncher launcher;
 	
 	private void startShoting(){
-		Timer.instance().start();
+		launcher.start();
 	}
 	
 	private void stopShoting(){
-		Timer.instance().stop();
+		launcher.stop();
 	}
-	
-	Random random = new Random();
 	
 	public EnemyBasic(){
 		bounds = new Rectangle();
@@ -92,7 +77,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		explodeAnimation = Assets.enemyblows;
 		routineAnimation.setPlayMode(PlayMode.LOOP);
 		explosionDuration = explodeAnimation.getAnimationDuration();
-		initShoting();
+		launcher = new EnemyLauncher(this);
 	}
 	
 	public void init(float X, float Y){
@@ -130,6 +115,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		bounds.setPosition(getX(), getY());
 		if (getY() < -10) 
 			this.setPosition(getX(), Core.applicationHeight);
+		launcher.update(delta);
 	}
 	
 	@Override
@@ -150,7 +136,6 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	public void reset() {
 		if (this.getParent()!=null)	this.getParent().removeActor(this);
 		alive = false;
-		//Gdx.app.log("Enemy", "Dead");
 	}
 	
 	public boolean getState(){
@@ -158,7 +143,6 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public void explode(){
-		//state = CurrentState.EXPLODING;
 		currentAnimation = explodeAnimation;
 		elapsedTime = 0;
 		this.clearActions();
@@ -181,7 +165,6 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public void shot(){
-		//Gdx.app.log("Enemy", "Shot");
 		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.MISSILE_SHOT, this);
 	}
-}
+	}
