@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pompushka.collapso.Core;
+import com.pompushka.collapso.actors.Background;
 import com.pompushka.collapso.actors.BulletBasic;
 import com.pompushka.collapso.actors.Collider;
 import com.pompushka.collapso.actors.EnemyBasic;
@@ -24,6 +25,7 @@ import com.pompushka.collapso.scripts.Scene_1;
 
 public class CollapsoStage extends Stage{
 
+	private Background bkgnd;
 	private Hero hero;
 	private Collider collider;
 	private PoolAdaptor pool;
@@ -33,6 +35,7 @@ public class CollapsoStage extends Stage{
 	public CollapsoStage(Viewport viewport, SpriteBatch batch) {
 		super(viewport, batch);
 		
+		bkgnd = new Background();this.addActor(bkgnd);
 		pool = new PoolAdaptor(this);
 		hero = new Hero();addActor(hero);
 		collider = new Collider(pool, hero);

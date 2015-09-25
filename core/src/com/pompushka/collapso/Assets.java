@@ -4,16 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
 	
+	public static Texture background1;
+	public static Texture background2;
 	public static Texture heroTex;
 	public static Texture bulletTex;
 	public static Texture enemyTex[] = new Texture[4];
 	
+	public static TextureRegion bkgnd1;
 	public static TextureRegion hero;
 	public static TextureRegion bullet;
 	public static TextureRegion missile;
@@ -29,6 +33,8 @@ public class Assets {
 	}
 	
 	public static void load () {
+		background1 = loadTexture("bkgnd1.png");
+		background2 = loadTexture("bkgnd2.png");
 		heroTex = loadTexture("hero.png");
 		bulletTex = loadTexture("bullet_basic.png");
 		enemyTex[0] = loadTexture("enemy_basic_red.png");
@@ -36,6 +42,9 @@ public class Assets {
 		enemyTex[2] = loadTexture("enemy_basic_explo_1.png");
 		enemyTex[3] = loadTexture("enemy_basic_explo_2.png");
 		
+		background1.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		background2.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		//bkgnd1 = new TextureRegion(background1,100,100,1100,800);
 		hero = new TextureRegion(heroTex, 0,0,200,200);
 		bullet = new TextureRegion(bulletTex, 0,0,10,20);
 		missile = new TextureRegion(bulletTex, 0,0,10,20);
