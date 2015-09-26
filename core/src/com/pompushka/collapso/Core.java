@@ -6,6 +6,8 @@ public abstract class Core {
 	
 	public static CollapsoGame game;
 	
+	public static final boolean isPaused = false;
+	
 	public static final boolean GAME_RENDERER_STATE = false;
 	public static final boolean GUI_RENDERER_STATE = false;
 	

@@ -1,5 +1,6 @@
 package com.pompushka.collapso.actors;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.Color;
@@ -8,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 import com.pompushka.collapso.stages.HUDStage;
@@ -21,12 +24,16 @@ public class Hero extends Actor implements Telegraph{
 	private Gun gun;
 	private Rectangle bounds;
 	
+	
+	
 	public Hero(){
 		bounds = new Rectangle();
 		this.setBounds(Core.viewPortWidth*0.5f, 0, 1, 1);
 		bounds.set(Core.viewPortWidth*0.5f, 0, 1, 1);
 		gun = new Gun(this);
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);
+		
+		//this.addListener(new HeroTouchListener());
 	}
 	
 	@Override

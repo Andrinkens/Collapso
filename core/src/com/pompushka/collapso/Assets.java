@@ -55,8 +55,11 @@ public class Assets {
 		enemyAnim = new Animation(0.5f, new TextureRegion(enemyTex[0], 0,0,140,110), new TextureRegion(enemyTex[1], 0,0,140,110));
 		enemyblows = new Animation(0.5f, new TextureRegion(enemyTex[2], 0,0,140,110), new TextureRegion(enemyTex[3], 0,0,140,110));
 		
-		font = new BitmapFont(Gdx.files.internal("fonts/font1.fnt"));
-
+		//font = new BitmapFont(Gdx.files.internal("fonts/font1.fnt"));
+		font = new BitmapFont(Gdx.files.internal("fonts/scores_font_pixel_millenium.fnt"));
+		//font = new BitmapFont(Gdx.files.internal("fonts/scores_font.fnt"));
+		//font = new BitmapFont(Gdx.files.internal("fonts/scores_font_color_basic.fnt"));
+		
 		shotSound = Gdx.audio.newSound(Gdx.files.internal("shot.wav"));
 	}
 	

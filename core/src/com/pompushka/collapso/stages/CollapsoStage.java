@@ -9,6 +9,8 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -38,25 +40,40 @@ public class CollapsoStage extends Stage{
 		bkgnd = new Background();this.addActor(bkgnd);
 		pool = new PoolAdaptor(this);
 		hero = new Hero();addActor(hero);
+		hero.addListener(new HeroTouchListener());
 		collider = new Collider(pool, hero);
 		
 		setDebugAll(Core.GAME_RENDERER_STATE);
 		
 		scene = new Scene_1(pool);
 		scene.start();
+		
+		Gdx.input.setInputProcessor(this);
 	}
 	
 	@Override
 	public void act (float delta){
-		super.act(delta);
-		collider.update();
-		scene.checkEnd();
+		if (!Core.isPaused){
+			super.act(delta);
+			collider.update();
+			scene.checkEnd();
+		}
 	}
 		
 	public void resize(int width, int height){
 		this.getViewport().update(width, height);
 	}
+	
+	public class HeroTouchListener extends InputListener{
+	    public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	        System.out.println("Hero down");
+	        return true;
+	    }
 
+	    public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        System.out.println("Hero up");
+	    }
 
+	}
 }
 
