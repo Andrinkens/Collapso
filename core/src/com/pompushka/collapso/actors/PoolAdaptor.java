@@ -7,21 +7,14 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.pompushka.collapso.Core;
 import com.pompushka.collapso.actors.Gun.BulletInfo;
+import com.pompushka.collapso.actors.bullets.Bullet;
+import com.pompushka.collapso.actors.bullets.BulletBasic;
+import com.pompushka.collapso.actors.bullets.Weapon_1;
+import com.pompushka.collapso.actors.bullets.Weapon_2;
 
 public class PoolAdaptor implements Telegraph{
 
 	private Stage stage;
-	
-	public PoolAdaptor(final Stage stage){
-		this.stage = stage;
-		
-    	Core.game.msgDispatcher.addListener(this, Core.Messages.ENEMY_FREE);
-    	Core.game.msgDispatcher.addListener(this, Core.Messages.MISSILE_FREE);
-    	Core.game.msgDispatcher.addListener(this, Core.Messages.BULLET_FREE);
-    	
-    	Core.game.msgDispatcher.addListener(this, Core.Messages.BULLET_SHOT);
-    	Core.game.msgDispatcher.addListener(this, Core.Messages.MISSILE_SHOT);
-	}
 	
 	private final Array<EnemyBasic> activeEnemies = new Array<EnemyBasic>();
 	private final Pool<EnemyBasic> enemyPool = new Pool<EnemyBasic>() {
@@ -39,13 +32,32 @@ public class PoolAdaptor implements Telegraph{
         }
     };
     
-    private final Array<BulletBasic> activeBullets = new Array<BulletBasic>();
-	private final Pool<BulletBasic> bulletPool = new Pool<BulletBasic>() {
-        @Override
-        protected BulletBasic newObject() {
-            return new BulletBasic();
-        }
-    };
+    private Array<BulletBasic> activeBullets = new Array<BulletBasic>();
+	private Pool<BulletBasic> bulletPool[] = new Pool[Core.BULLETS_TYPE_NUM];
+    
+	public PoolAdaptor(final Stage stage){
+		this.stage = stage;
+		
+    	Core.game.msgDispatcher.addListener(this, Core.Messages.ENEMY_FREE);
+    	Core.game.msgDispatcher.addListener(this, Core.Messages.MISSILE_FREE);
+    	Core.game.msgDispatcher.addListener(this, Core.Messages.BULLET_FREE);
+    	
+    	Core.game.msgDispatcher.addListener(this, Core.Messages.BULLET_SHOT);
+    	Core.game.msgDispatcher.addListener(this, Core.Messages.MISSILE_SHOT);
+    	
+		bulletPool[0] = new Pool<BulletBasic>() {
+	        @Override
+	        protected BulletBasic newObject() {
+	            return new Weapon_1();
+	        }
+	    };
+		bulletPool[1] = new Pool<BulletBasic>() {
+	        @Override
+	        protected BulletBasic newObject() {
+	            return new Weapon_2();
+	        }
+	    };
+	}
     
 	public EnemyBasic spawnEnemy(float X, float Y){
 		EnemyBasic enemy = enemyPool.obtain();
@@ -63,8 +75,8 @@ public class PoolAdaptor implements Telegraph{
 		return missile;
 	}
 	
-	public BulletBasic spawnBullet(float X, float Y){
-		BulletBasic bullet = bulletPool.obtain();
+	public BulletBasic spawnBullet(float X, float Y, int type){
+		BulletBasic bullet = bulletPool[type].obtain();
 		bullet.init(X,Y);
 		activeBullets.add(bullet);
 		stage.addActor(bullet);
@@ -82,7 +94,7 @@ public class PoolAdaptor implements Telegraph{
 	}
 	
 	public void removeBullet(BulletBasic bullet){
-		bulletPool.free(bullet);
+		bulletPool[bullet.getType()].free(bullet);
 		activeBullets.removeValue(bullet, true);
 	}
 	
@@ -122,7 +134,7 @@ public class PoolAdaptor implements Telegraph{
 		
 		if (msg.message == Core.Messages.BULLET_SHOT){
 			BulletInfo bi = (BulletInfo) msg.extraInfo;
-			spawnBullet(bi.X, bi.Y);
+			spawnBullet(bi.X, bi.Y, bi.BulletType);
 		}
 		
 		return false;

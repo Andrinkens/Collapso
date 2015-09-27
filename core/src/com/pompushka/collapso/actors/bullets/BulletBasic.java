@@ -1,4 +1,4 @@
-package com.pompushka.collapso.actors;
+package com.pompushka.collapso.actors.bullets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.Telegram;
@@ -13,17 +13,18 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 
-public class BulletBasic extends Actor implements Poolable, Telegraph{
+public abstract class BulletBasic extends Actor implements Poolable, Telegraph{
 
-	private TextureRegion tRegion = Assets.bullet;
+	private TextureRegion tRegion = Assets.bullet[0];
 	
 	private float speed=Core.BULLET_SPEED;
 	private boolean active = false;
 	private Rectangle bounds;
-	private int damage = 50;
-	private Color color;
+	private int damage = 0;
+	public Color color;
 	private float width = 0.2f;
 	private float height = 0.3f;
+	private int type = 0;
 	
 	public BulletBasic(){
 		bounds = new Rectangle();
@@ -77,7 +78,23 @@ public class BulletBasic extends Actor implements Poolable, Telegraph{
 	public int getDamage(){
 		return damage;
 	}
+	
+	public int getType(){
+		return type;
+	}
 
+	public void setType(int type){
+		this.type = type;
+	}
+	
+	public void setDamage(int damage){
+		this.damage = damage;
+	}
+	
+	public void setTextureRegion(TextureRegion tr){
+		tRegion = tr;
+	}
+	
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		// TODO Auto-generated method stub

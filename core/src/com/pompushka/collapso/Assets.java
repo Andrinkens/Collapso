@@ -15,11 +15,13 @@ public class Assets {
 	public static Texture background2;
 	public static Texture heroTex;
 	public static Texture bulletTex;
+	public static Texture bulletRedTex;
 	public static Texture enemyTex[] = new Texture[4];
 	
 	public static TextureRegion bkgnd1;
 	public static TextureRegion hero;
-	public static TextureRegion bullet;
+	public static TextureRegion bullet[] = new TextureRegion[2];
+	public static TextureRegion bulletRed;
 	public static TextureRegion missile;
 	public static Animation enemyAnim;
 	public static Animation enemyblows;
@@ -37,6 +39,7 @@ public class Assets {
 		background2 = loadTexture("bkgnd2.png");
 		heroTex = loadTexture("hero.png");
 		bulletTex = loadTexture("bullet_basic.png");
+		bulletRedTex = loadTexture("bullet_red.png");
 		enemyTex[0] = loadTexture("enemy_basic_red.png");
 		enemyTex[1] = loadTexture("enemy_basic_red_1.png");
 		enemyTex[2] = loadTexture("enemy_basic_explo_1.png");
@@ -46,7 +49,8 @@ public class Assets {
 		background2.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 		//bkgnd1 = new TextureRegion(background1,100,100,1100,800);
 		hero = new TextureRegion(heroTex, 0,0,200,200);
-		bullet = new TextureRegion(bulletTex, 0,0,10,20);
+		bullet[0] = new TextureRegion(bulletTex, 0,0,10,20);
+		bullet[1] = new TextureRegion(bulletRedTex, 0,0,10,20);
 		missile = new TextureRegion(bulletTex, 0,0,10,20);
 		
 		enemyTex[0].setFilter(TextureFilter.MipMap, TextureFilter.Nearest);

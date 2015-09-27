@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.utils.Array;
 import com.pompushka.collapso.Core;
+import com.pompushka.collapso.actors.bullets.BulletBasic;
 
 public class Collider implements Telegraph{
 

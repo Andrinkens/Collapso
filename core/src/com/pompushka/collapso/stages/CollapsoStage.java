@@ -10,6 +10,7 @@ import com.pompushka.collapso.actors.Collider;
 import com.pompushka.collapso.actors.Hero;
 import com.pompushka.collapso.actors.InvisiblePads;
 import com.pompushka.collapso.actors.PoolAdaptor;
+import com.pompushka.collapso.actors.bullets.BulletBasic;
 import com.pompushka.collapso.scripts.Scene_1;
 
 public class CollapsoStage extends Stage{
