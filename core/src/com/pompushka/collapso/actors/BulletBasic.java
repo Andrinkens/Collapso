@@ -17,19 +17,21 @@ public class BulletBasic extends Actor implements Poolable, Telegraph{
 
 	private TextureRegion tRegion = Assets.bullet;
 	
-	private float speed=Core.BULLET_BASIC_SPEED;
+	private float speed=Core.BULLET_SPEED;
 	private boolean active = false;
 	private Rectangle bounds;
 	private int damage = 50;
 	private Color color;
+	private float width = 0.2f;
+	private float height = 0.3f;
 	
 	public BulletBasic(){
 		bounds = new Rectangle();
 	}
 	
 	public void init(float X, float Y){
-		this.setBounds(X, Y, 0.2f, 0.4f);
-		bounds.set(X, Y, 0.2f, 0.4f);
+		this.setBounds(X, Y, width, height);
+		bounds.set(X, Y, width, height);
 		active = true;
 		Assets.playSound(Assets.shotSound);
 	}
@@ -37,7 +39,7 @@ public class BulletBasic extends Actor implements Poolable, Telegraph{
 	@Override
 	public void act (float delta){
 		super.act(delta);
-		this.setY(getY()+speed);
+		this.setY(getY()+speed*delta);
 		if (this.getY()>Core.applicationHeight) {
 			setState(false);
 		}

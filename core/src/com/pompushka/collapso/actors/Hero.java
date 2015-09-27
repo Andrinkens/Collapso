@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
-import com.pompushka.collapso.stages.HUDStage;
 
 public class Hero extends Actor implements Telegraph{
 	
@@ -24,16 +23,13 @@ public class Hero extends Actor implements Telegraph{
 	private Gun gun;
 	private Rectangle bounds;
 	
-	
-	
 	public Hero(){
 		bounds = new Rectangle();
 		this.setBounds(Core.viewPortWidth*0.5f, 0, 1, 1);
 		bounds.set(Core.viewPortWidth*0.5f, 0, 1, 1);
 		gun = new Gun(this);
+		this.addListener(new HeroTouchListener());
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);
-		
-		//this.addListener(new HeroTouchListener());
 	}
 	
 	@Override
@@ -41,7 +37,7 @@ public class Hero extends Actor implements Telegraph{
 		super.act(delta);
 		gun.update(delta);
 		if (direction!=0){
-			float newPos = getX()+velocity*direction;
+			float newPos = getX()+velocity*delta*direction;
 			if (newPos > 0 && newPos < Core.viewPortWidth-getWidth())
 				setX(newPos);
 		}
@@ -50,10 +46,10 @@ public class Hero extends Actor implements Telegraph{
 	
 	@Override
 	public void draw (Batch batch, float parentAlpha) {
-			color = getColor();
-			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-			batch.draw(tRegion, getX(), getY(), getWidth(), getHeight());
-			batch.setColor(color.r, color.g, color.b, color.a);
+		color = getColor();
+		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		batch.draw(tRegion, getX(), getY(), getWidth(), getHeight());
+		batch.setColor(color.r, color.g, color.b, color.a);
 	}
 	
 	public void moveLeft(){
@@ -88,20 +84,28 @@ public class Hero extends Actor implements Telegraph{
 			int state = (Integer)msg.extraInfo;
 
 			switch (state){
-				case HUDStage.PadState.PAD_LEFT_DN:
+				case InvisiblePads.PadState.PAD_LEFT_DN:
 					setDirection(getDirection()-1);break;
-				case HUDStage.PadState.PAD_LEFT_UP:
+				case InvisiblePads.PadState.PAD_LEFT_UP:
 					setDirection(getDirection()+1);break;
-				case HUDStage.PadState.PAD_RIGHT_DN:
+				case InvisiblePads.PadState.PAD_RIGHT_DN:
 					setDirection(getDirection()+1);break;
-				case HUDStage.PadState.PAD_RIGHT_UP:
+				case InvisiblePads.PadState.PAD_RIGHT_UP:
 					setDirection(getDirection()-1);break;
 			}
 		}
-		
-
-		
 		return false;
 	}
 	
+	public class HeroTouchListener extends InputListener{
+	    public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	        System.out.println("Hero down");
+	        Core.isPaused = !Core.isPaused;
+	        return true;
+	    }
+
+	    public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        System.out.println("Hero up");
+	    }
+	}
 }

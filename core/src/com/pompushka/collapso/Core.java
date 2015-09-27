@@ -6,13 +6,14 @@ public abstract class Core {
 	
 	public static CollapsoGame game;
 	
-	public static final boolean isPaused = false;
+	public static boolean isPaused = false;
 	
 	public static final boolean GAME_RENDERER_STATE = false;
 	public static final boolean GUI_RENDERER_STATE = false;
 	
-	public static final float HERO_SPEED = 0.1f;
-	public static final float BULLET_BASIC_SPEED = 0.15f;
+	public static final float HERO_SPEED = 5f;
+	public static final float BULLET_SPEED = 5f;
+	public static final float MISSILE_SPEED = 4f;
 	
 	public static class Messages {
 		public static final int PADS = 1;//Hero

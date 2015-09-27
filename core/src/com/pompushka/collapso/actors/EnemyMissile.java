@@ -18,7 +18,7 @@ public class EnemyMissile extends Actor implements Poolable, Telegraph{
 	private TextureRegion tRegion = Assets.missile;
 	
 	
-	private float speed=Core.BULLET_BASIC_SPEED/4;
+	private float speed=Core.MISSILE_SPEED;
 	private Color color;
 	private Rectangle bounds;
 	private int damage = 50;
@@ -37,7 +37,7 @@ public class EnemyMissile extends Actor implements Poolable, Telegraph{
 	@Override
 	public void act (float delta){
 		super.act(delta);
-		this.setY(getY()-speed);
+		this.setY(getY()-speed*delta);
 		if (this.getY()<0) {
 			setState(false);
 		}
