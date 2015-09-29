@@ -8,26 +8,28 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 
-public class Hero extends Actor implements Telegraph{
+public class Hero extends Group implements Telegraph{
 	
 	private TextureRegion tRegion = Assets.hero;
 	private float velocity = Core.HERO_SPEED;
 	private int direction = 0;
 	private Color color;
-	private Gun gun;
-	private Rectangle bounds;
+	private Sparky gun;
+	private Rectangle bounds = new Rectangle();
 	
 	public Hero(){
-		bounds = new Rectangle();
 		this.setBounds(Core.viewPortWidth*0.5f, 0, 1, 1);
 		bounds.set(Core.viewPortWidth*0.5f, 0, 1, 1);
-		gun = new Gun(this);
+		gun = new Sparky(getWidth()*0.5f, getHeight());
+		this.addActor(gun);
 		this.addListener(new HeroTouchListener());
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);
 	}
@@ -35,7 +37,7 @@ public class Hero extends Actor implements Telegraph{
 	@Override
 	public void act (float delta){
 		super.act(delta);
-		gun.update(delta);
+		//gun.update(getX(), getY(), delta);
 		if (direction!=0){
 			float newPos = getX()+velocity*delta*direction;
 			if (newPos > 0 && newPos < Core.viewPortWidth-getWidth())

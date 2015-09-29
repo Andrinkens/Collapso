@@ -8,7 +8,7 @@ public abstract class Core {
 	
 	public static boolean isPaused = false;
 	
-	public static final boolean GAME_RENDERER_STATE = false;
+	public static final boolean GAME_RENDERER_STATE = true;
 	public static final boolean GUI_RENDERER_STATE = false;
 	
 	public static final float HERO_SPEED = 5f;

@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.pompushka.collapso.Core;
-import com.pompushka.collapso.actors.Gun.BulletInfo;
+import com.pompushka.collapso.actors.Gun.BulletSpawnDef;
 import com.pompushka.collapso.actors.bullets.Bullet;
 import com.pompushka.collapso.actors.bullets.BulletBasic;
 import com.pompushka.collapso.actors.bullets.Weapon_1;
@@ -133,7 +133,7 @@ public class PoolAdaptor implements Telegraph{
 		}
 		
 		if (msg.message == Core.Messages.BULLET_SHOT){
-			BulletInfo bi = (BulletInfo) msg.extraInfo;
+			BulletSpawnDef bi = (BulletSpawnDef) msg.extraInfo;
 			spawnBullet(bi.X, bi.Y, bi.BulletType);
 		}
 		
