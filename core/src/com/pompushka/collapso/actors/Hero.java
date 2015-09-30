@@ -15,6 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
+import com.pompushka.collapso.actors.bullets.Gun;
+import com.pompushka.collapso.actors.bullets.Weapon_1;
+import com.pompushka.collapso.actors.bullets.Weapon_2;
 
 public class Hero extends Group implements Telegraph{
 	
@@ -22,13 +25,13 @@ public class Hero extends Group implements Telegraph{
 	private float velocity = Core.HERO_SPEED;
 	private int direction = 0;
 	private Color color;
-	private Sparky gun;
+	private Weapon_2 gun;
 	private Rectangle bounds = new Rectangle();
 	
 	public Hero(){
 		this.setBounds(Core.viewPortWidth*0.5f, 0, 1, 1);
 		bounds.set(Core.viewPortWidth*0.5f, 0, 1, 1);
-		gun = new Sparky(getWidth()*0.5f, getHeight());
+		gun = new Weapon_2(getWidth()*0.5f, getHeight());
 		this.addActor(gun);
 		this.addListener(new HeroTouchListener());
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);

@@ -1,4 +1,4 @@
-package com.pompushka.collapso.actors;
+package com.pompushka.collapso.actors.bullets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.Telegram;
@@ -24,7 +24,12 @@ public abstract class Gun extends Actor implements Telegraph{
 		}
 	}
 	
-	private float rate = 1.0f;
+	private float shotingDelay = 0.2f;
+	private float reloadDelay = 1.0f;
+	private int magazineSize = 5;
+	private int currentBullet = 0;
+	private boolean isReloading = true;
+
 	private float elapsedTime = 0;
 	//private Vector2 offset;
 	private int currentBulletType = 0;
@@ -39,25 +44,54 @@ public abstract class Gun extends Actor implements Telegraph{
 	}
 	
 	public void setRate(float rate){
-		this.rate = rate;
+		this.shotingDelay = rate;
 	}
 	
 	public float getRate(){
-		return rate;
+		return shotingDelay;
+	}
+	
+	public void setDelay(float delay){
+		reloadDelay = delay;
+	}
+	
+	public float getDelay(){
+		return reloadDelay;
+	}
+	
+	public void setMagazineSize(int size){
+		magazineSize = size;
+	}
+	
+	public int getMagazineSize(){
+		return magazineSize;
 	}
 	
 	@Override
 	public void act (float delta){
 		super.act(delta);
 		elapsedTime+=delta;
-		if (elapsedTime>=rate){
-			elapsedTime = 0;
-			shoot(this.getParent().getX()+getX(), this.getParent().getY()+getY(), currentBulletType);
+		if (isReloading){
+			if (elapsedTime>=reloadDelay){
+				isReloading = false;
+				elapsedTime = 0;
+				shoot(this.getParent().getX()+getX(), this.getParent().getY()+getY(), currentBulletType);
+			}
 		}
+		else 
+			if (elapsedTime>=shotingDelay){
+				elapsedTime = 0;
+				shoot(this.getParent().getX()+getX(), this.getParent().getY()+getY(), currentBulletType);
+			}
 	}
 	
 	public boolean shoot(float ownerX, float ownerY, int bulletType){
 		Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.BULLET_SHOT, new BulletSpawnDef(ownerX,ownerY,bulletType));
+		currentBullet++;
+		if (currentBullet == magazineSize){
+			currentBullet = 0;
+			isReloading = true;
+		}	
 		return true;
 	}
 

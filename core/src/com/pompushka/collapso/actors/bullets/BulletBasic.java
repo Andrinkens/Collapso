@@ -22,8 +22,6 @@ public abstract class BulletBasic extends Actor implements Poolable, Telegraph{
 	private Rectangle bounds;
 	private int damage = 0;
 	public Color color;
-	private float width = 0.2f;
-	private float height = 0.3f;
 	private int type = 0;
 	
 	public BulletBasic(){
@@ -31,8 +29,8 @@ public abstract class BulletBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public void init(float X, float Y){
-		this.setBounds(X-0.5f*width, Y, width, height);
-		bounds.set(X-0.5f*width, Y, width, height);
+		this.setBounds(X-0.5f*getWidth(), Y, getWidth(), getHeight());
+		bounds.set(X-0.5f*getWidth(), Y, getWidth(), getHeight());
 		active = true;
 		Assets.playSound(Assets.shotSound);
 	}
@@ -100,5 +98,5 @@ public abstract class BulletBasic extends Actor implements Poolable, Telegraph{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 }

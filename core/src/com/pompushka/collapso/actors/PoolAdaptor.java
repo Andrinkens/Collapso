@@ -6,11 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.pompushka.collapso.Core;
-import com.pompushka.collapso.actors.Gun.BulletSpawnDef;
-import com.pompushka.collapso.actors.bullets.Bullet;
 import com.pompushka.collapso.actors.bullets.BulletBasic;
-import com.pompushka.collapso.actors.bullets.Weapon_1;
-import com.pompushka.collapso.actors.bullets.Weapon_2;
+import com.pompushka.collapso.actors.bullets.Bullet_2;
+import com.pompushka.collapso.actors.bullets.Bullet_1;
+import com.pompushka.collapso.actors.bullets.Gun.BulletSpawnDef;
 
 public class PoolAdaptor implements Telegraph{
 
@@ -48,13 +47,13 @@ public class PoolAdaptor implements Telegraph{
 		bulletPool[0] = new Pool<BulletBasic>() {
 	        @Override
 	        protected BulletBasic newObject() {
-	            return new Weapon_1();
+	            return new Bullet_1();
 	        }
 	    };
 		bulletPool[1] = new Pool<BulletBasic>() {
 	        @Override
 	        protected BulletBasic newObject() {
-	            return new Weapon_2();
+	            return new Bullet_2();
 	        }
 	    };
 	}
