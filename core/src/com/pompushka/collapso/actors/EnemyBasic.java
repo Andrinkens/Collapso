@@ -54,7 +54,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	private int score = 50;
 	
 	private Color basicColor;
-	private Color hitColor;
+	private Color hitColor = new Color(1,0,0,1);
 	
 	private float velX;
 	private float velY;
@@ -62,7 +62,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	private boolean alive = false;
 	
 	private EnemyLauncher launcher;
-	
+
 	private void startShoting(){
 		launcher.start();
 	}
@@ -72,6 +72,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public EnemyBasic(){
+		basicColor = new Color(1,1,1,1);
 		bounds = new Rectangle();
 		routineAnimation = Assets.enemyAnim;
 		explodeAnimation = Assets.enemyblows;
@@ -86,12 +87,8 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		bounds.set(X, Y, 1.5f,1);
 		health = 50;
 		alive = true;
-		
-		basicColor = getColor();
-		hitColor = new Color(1,0,0,1);
-		this.setColor(basicColor.r, basicColor.g, basicColor.b, 1.0f);
+		this.setColor(basicColor);
 		currentAnimation = routineAnimation;
-		//this.addAction(forever(sequence(Actions.rotateTo(10f, 0.8f),Actions.rotateTo(-10,0.8f))));
 
 		startShoting();
 	}
@@ -102,8 +99,8 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	
 	private boolean applyDamage(int damage){
 		health -= damage;
-		if  (health > 0) 
-			this.addAction(sequence(color(hitColor, 0.1f),color(basicColor, 0.1f)));
+		if  (health > 0)
+			this.addAction(sequence(color(hitColor, 0.05f),color(basicColor, 0.05f)));
 		else 
 			return true;
 		return false;
@@ -126,7 +123,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 		//batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight(), );
 		batch.draw(currentFrame, getX(), getY(),  getOriginX(), getOriginY(), getWidth(), getHeight(),getScaleX(), getScaleY(), getRotation());
-		batch.setColor(color.r, color.g, color.b, color.a);
+		batch.setColor(basicColor);
 		
 		if (!alive && elapsedTime>=explosionDuration)
 			Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.ENEMY_FREE, this);
@@ -143,11 +140,12 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 	}
 	
 	public void explode(){
+		alive = false;
 		currentAnimation = explodeAnimation;
 		elapsedTime = 0;
 		this.clearActions();
+		this.setColor(basicColor);
 		stopShoting();
-		alive = false;
 	}
 	
 	public Rectangle getBounds() {

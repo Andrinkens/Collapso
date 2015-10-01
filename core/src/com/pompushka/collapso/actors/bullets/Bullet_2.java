@@ -7,6 +7,6 @@ public class Bullet_2 extends BulletBasic{
 		this.setType(1);
 		this.setSize(0.2f,  0.1f);
 		this.setTextureRegion(Assets.bullet[1]);
-		this.setDamage(100);
+		this.setDamage(25);
 	}
 }

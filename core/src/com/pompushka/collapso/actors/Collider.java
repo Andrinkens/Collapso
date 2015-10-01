@@ -28,7 +28,7 @@ public class Collider implements Telegraph{
             if (enemy.getState()){
                 for (int j = bullets.size; --j >= 0;) {
                     BulletBasic bullet = bullets.get(j);
-                    if (enemy.getBounds().overlaps(bullet.getBounds())){
+                    if (enemy.getState() && enemy.getBounds().overlaps(bullet.getBounds())){
                     	bullet.setState(false);
                     	if (enemy.hit(bullet.getDamage())){
                     		enemy.explode();

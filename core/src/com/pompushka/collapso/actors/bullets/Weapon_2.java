@@ -4,9 +4,9 @@ public class Weapon_2 extends Gun{
 	
 	public Weapon_2(float X, float Y){
 		super(X,Y);
-		setRate(0.2f);
+		setRate(0.05f);
 		setDelay(1f);
-		setMagazineSize(4);
+		setMagazineSize(8);
 		setBulletType(1);
 	}	
 	

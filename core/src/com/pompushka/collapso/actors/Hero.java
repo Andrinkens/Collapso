@@ -25,7 +25,7 @@ public class Hero extends Group implements Telegraph{
 	private float velocity = Core.HERO_SPEED;
 	private int direction = 0;
 	private Color color;
-	private Weapon_2 gun;
+	private Gun gun;
 	private Rectangle bounds = new Rectangle();
 	
 	public Hero(){
