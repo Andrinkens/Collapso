@@ -37,7 +37,7 @@ public class Assets {
 	public static void load () {
 		background1 = loadTexture("bkgnd1.png");
 		background2 = loadTexture("bkgnd2.png");
-		heroTex = loadTexture("hero.png");
+		heroTex = loadTexture("textures/hero.png");
 		bulletTex = loadTexture("bullet_basic.png");
 		bulletRedTex = loadTexture("bullet_red.png");
 		enemyTex[0] = loadTexture("enemy_basic_red.png");
@@ -48,7 +48,7 @@ public class Assets {
 		background1.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 		background2.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 		//bkgnd1 = new TextureRegion(background1,100,100,1100,800);
-		hero = new TextureRegion(heroTex, 0,0,200,200);
+		hero = new TextureRegion(heroTex, 0,0,150,120);
 		bullet[0] = new TextureRegion(bulletTex, 0,0,10,20);
 		bullet[1] = new TextureRegion(bulletRedTex, 0,0,10,20);
 		missile = new TextureRegion(bulletTex, 0,0,10,20);

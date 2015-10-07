@@ -29,9 +29,9 @@ public class Hero extends Group implements Telegraph{
 	private Rectangle bounds = new Rectangle();
 	
 	public Hero(){
-		this.setBounds(Core.viewPortWidth*0.5f, 0, 1, 1);
+		this.setBounds(Core.viewPortWidth*0.5f, 0, 1.5f, 1.2f);
 		bounds.set(Core.viewPortWidth*0.5f, 0, 1, 1);
-		gun = new Weapon_2(getWidth()*0.5f, getHeight());
+		gun = new Weapon_1(getWidth()*0.5f, getHeight());
 		this.addActor(gun);
 		this.addListener(new HeroTouchListener());
 		Core.game.msgDispatcher.addListener(this, Core.Messages.PADS);
