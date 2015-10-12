@@ -62,6 +62,10 @@ public class EnemyMissile extends Actor implements Poolable, Telegraph{
         return bounds;
     }
 	
+	public int getDamage(){
+		return damage;
+	}
+	
 	@Override
 	public void reset() {
 		if (this.getParent()!=null)	this.getParent().removeActor(this);

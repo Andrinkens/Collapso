@@ -31,6 +31,8 @@ public class Assets {
 	public static BitmapFont font;
 	
 	public static Sound shotSound;
+	public static Sound bangSound;
+	public static Sound hitSound;
 	
 	public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file),true);
@@ -78,6 +80,8 @@ public class Assets {
 		//font = new BitmapFont(Gdx.files.internal("fonts/scores_font_color_basic.fnt"));
 		
 		shotSound = Gdx.audio.newSound(Gdx.files.internal("shot.wav"));
+		bangSound = Gdx.audio.newSound(Gdx.files.internal("bang.wav"));
+		hitSound = Gdx.audio.newSound(Gdx.files.internal("hit.wav"));
 	}
 	
 	public static void playSound (Sound sound) {

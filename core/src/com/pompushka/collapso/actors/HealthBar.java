@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.pompushka.collapso.Assets;
 
 public class HealthBar extends Actor{
 
-	private TextureRegion tRegion = new TextureRegion(new Texture("hero.png"), 100,100,1,1);
+	private TextureRegion tRegion = new TextureRegion(Assets.heroTex, 100,100,1,1);
 	
-	private int lives = 3;
+	private int health = 100;
 	
 	public HealthBar(float X, float Y){
-		this.setBounds(X, Y, 25, 10);
+		this.setBounds(X, Y, health, 10);
 	}
 	
     @Override
@@ -25,21 +26,14 @@ public class HealthBar extends Actor{
 	public void draw (Batch batch, float parentAlpha) {
 		Color color = getColor();
 		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha * 0.5f);
-		for (int i=0;i<lives;i++)
-			batch.draw(tRegion, getX()-(this.getWidth()+5)*i, getY(), getWidth(), getHeight());
+		batch.draw(tRegion, getX(), getY(), getWidth(), getHeight());
 		batch.setColor(color.r, color.g, color.b, color.a);
 	}
 	
-	public int getLives(){
-		return lives;
-	}
-	
-	public void addLive(){
-		lives++;
-	}
-	
-	public void subLive(){
-		lives--;
+	public void setHealth(int health){
+		if (health < 0)	health = 0;
+		this.health = health;
+		this.setWidth(health);
 	}
 
 }

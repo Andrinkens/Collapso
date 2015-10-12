@@ -22,6 +22,8 @@ import com.pompushka.collapso.actors.bullets.Weapon_2;
 public class Hero extends Group implements Telegraph{
 	
 	private TextureRegion tRegion = Assets.hero;
+	private int totalHealth = 450;
+	private int health = totalHealth;
 	private float velocity = Core.HERO_SPEED;
 	private int direction = 0;
 	private Color color;
@@ -55,6 +57,17 @@ public class Hero extends Group implements Telegraph{
 		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 		batch.draw(tRegion, getX(), getY(), getWidth(), getHeight());
 		batch.setColor(color.r, color.g, color.b, color.a);
+	}
+	
+	public int applyDamage(int damage){
+		health -= damage;
+		if (health<0) health = 0;
+		Assets.playSound(Assets.hitSound);
+		return (int) getHealthInPercentage();
+	}
+	
+	public float getHealthInPercentage(){
+		return health*100/totalHealth;
 	}
 	
 	public void moveLeft(){

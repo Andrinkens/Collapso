@@ -12,7 +12,7 @@ public abstract class Core {
 	public static final boolean GUI_RENDERER_STATE = false;
 	
 	public static final float HERO_SPEED = 5f;
-	public static final float BULLET_SPEED = 5f;
+	public static final float BULLET_SPEED = 15f;
 	public static final float MISSILE_SPEED = 4f;
 	
 	public static final int BULLETS_TYPE_NUM = 2;

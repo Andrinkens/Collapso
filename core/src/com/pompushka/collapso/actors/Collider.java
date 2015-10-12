@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.utils.Array;
+import com.pompushka.collapso.Assets;
 import com.pompushka.collapso.Core;
 import com.pompushka.collapso.actors.bullets.BulletBasic;
 
@@ -45,7 +46,8 @@ public class Collider implements Telegraph{
             EnemyMissile missile = missiles.get(i);
             if (missile.getBounds().overlaps(hero.getBounds())){
             	missile.setState(false);
-            	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.LIVE, -1);
+            	int health = hero.applyDamage(missile.getDamage());
+            	Core.game.msgDispatcher.dispatchMessage(this, Core.Messages.LIVE, health);
             }
         }
 	}

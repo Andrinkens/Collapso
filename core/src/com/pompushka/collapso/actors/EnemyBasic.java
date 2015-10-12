@@ -146,6 +146,7 @@ public class EnemyBasic extends Actor implements Poolable, Telegraph{
 		this.clearActions();
 		this.setColor(basicColor);
 		stopShoting();
+		Assets.playSound(Assets.bangSound);
 	}
 	
 	public Rectangle getBounds() {
